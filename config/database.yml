@@ -19,11 +19,15 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
+  host: localhost
+  port: 5432
+  username: task-list
+  password: 123Qw/
 
 development:
   <<: *default
-  database: task-list_development
+  database: task_list_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: task-list_test
+  database: task_list_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +84,4 @@ test:
 #
 production:
   <<: *default
-  database: task-list_production
-  username: task-list
-  password: <%= ENV['TASK-LIST_DATABASE_PASSWORD'] %>
+  database: task_list_production
