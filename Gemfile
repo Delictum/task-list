@@ -59,3 +59,23 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'rspec'
+
+gem 'delayed_job'
+
+gem 'factory_bot'
+
+gem 'faker'
+
+gem 'dry-struct'
+
+gem 'simple_form'
+
+gem 'rubocop'
+
+gem 'pundit'
+
+gem 'devise'
+
+gem 'bootstrap-sass'
