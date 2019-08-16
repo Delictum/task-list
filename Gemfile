@@ -52,6 +52,8 @@ gem 'devise'
 
 gem 'bootstrap-sass'
 
+gem 'gon'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
