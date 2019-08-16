@@ -10,17 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_090606) do
+ActiveRecord::Schema.define(version: 2019_08_15_172851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "login"
-    t.string "email"
-    t.string "password"
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "comment_text"
+    t.datetime "created_by"
+    t.bigint "reply_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_comments_on_author_type_and_author_id"
+    t.index ["reply_id"], name: "index_comments_on_reply_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "subject"
+    t.integer "status"
+    t.text "description"
+    t.bigint "admin_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_tasks_on_admin_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "tasks_comments", id: false, force: :cascade do |t|
+    t.bigint "comment_id"
+    t.bigint "task_id"
+    t.index ["comment_id"], name: "index_tasks_comments_on_comment_id"
+    t.index ["task_id"], name: "index_tasks_comments_on_task_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "tasks", "admins"
+  add_foreign_key "tasks", "users"
 end
