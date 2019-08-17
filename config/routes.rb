@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  get 'persons/profile'
-  devise_for :admins
-  devise_for :users, controllers: { registrations: "registrations"}
-  as :user do
-    get '/' => 'devise/registrations#new'
-  end
+  devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions" }
+  devise_for :users, path: 'users', controllers: { sessions: "users/sessions" }
+
+  # get "user_sign_in" => "users/sessions/registrations_controller#new", :as => "user_sign_in"
+  # get "user_sign_out" => "users/sessions/registrations_controller#destroy", :as => "user_sign_out"
+  # get "user_sign_up" => "users/registrations_controller#new", :as => "user_sign_up"
 
   mount ActionCable.server => "/cable"
 
-  root 'static_pages#home'
+  get '/' => 'static_pages#home'
   get 'home' => 'static_pages#home'
   get 'about' => 'static_pages#about'
+  root 'static_pages#home'
 
   resources :tasks
   resources :users

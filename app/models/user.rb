@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
   has_many :tasks
   has_many :comments, as: :author
+
+  def self.policy_class
+    AdminPolicy
+  end
 end

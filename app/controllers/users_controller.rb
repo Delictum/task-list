@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+  before_action { authorize [:user] }
   def index
     @users = User.all
   end
@@ -13,16 +14,19 @@ class UsersController < ApplicationController
   end
 
   # GET /users/new
+  before_action { authorize [:user] }
   def new
     @user = User.new
   end
 
   # GET /users/1/edit
+  before_action { authorize [:user] }
   def edit
   end
 
   # POST /users
   # POST /users.json
+  before_action { authorize [:user] }
   def create
     @user = User.new(user_params)
 
@@ -39,6 +43,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
+  before_action { authorize [:user] }
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -53,6 +58,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+  before_action { authorize [:user] }
+  before_action { authorize [:user] }
   def destroy
     @user.destroy
     respond_to do |format|
