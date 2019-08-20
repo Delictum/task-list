@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :tasks
   has_many :comments, as: :author
 
-  def self.policy_class
-    AdminPolicy
-  end
+  validates :email, presence: true, uniqueness: true
+  validates :encrypted_password, presence: true
 end
