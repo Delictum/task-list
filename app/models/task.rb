@@ -3,6 +3,7 @@ class Task < ApplicationRecord
 
   validates :subject, presence: true, length: { in: 2..100 }
   validates :description, presence: true, length: { in: 2..300 }
+  validates_format_of :status, with: /^([0-3])$/, :multiline => true
 
   private
   def set_last_task
