@@ -1,0 +1,75 @@
+<h1>Listing tasks</h1>
+
+<div class="split left">
+  <div class="centered">
+    <h4>Tasks</h4>
+    <hr>
+
+    <%= simple_form_for :search, url: dashboard_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+      <%= f.input :subject, input_html: {value: ""} %>
+      <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :include_blank => '(All)', :multiple => true, :selected => [''] %>
+      <%= f.input :type, collection: { 'Issue' => 'Issue', 'Story' => 'Story' }, :include_blank => '(All)', :multiple => true, :selected => [''] %>
+      <%= f.input :assignee, collection: User.all, :label_method => :email,:value_method => :id, :include_blank => '(All)', :multiple => true, :selected => [''] %>
+      <%= f.input :created_by, collection: Admin.all, :label_method => :email,:value_method => :id, :include_blank => '(All)', :multiple => true, :selected => [''] %>
+
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <%= f.button :button, "Cancel", type: "reset", class: "btn-outline-secondary" %>
+    <% end %>
+
+    <hr>
+
+    <table>
+      <tr>
+        <th>Subject</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.subject %></td>
+          <td><%= task.type %></td>
+          <% if task.status == 0 %>
+            <td>To Do</td>
+          <% elsif task.status == 1 %>
+            <td>In Progress</td>
+          <% elsif task.status == 2 %>
+            <td>In Review</td>
+          <% elsif task.status == 3 %>
+            <td>Done</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<div class="split right">
+  <div class="centered">
+    <h4>In review</h4>
+    <hr>
+
+    <table>
+      <tr>
+        <th>Subject</th>
+        <th>Type</th>
+      </tr>
+
+      <% @tasks_review.each do |task| %>
+        <tr>
+          <td><%= task.subject %></td>
+          <td><%= task.type %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(function() {
+            $("input#search_created_at").datepicker();
+        });
+    });
+</script>

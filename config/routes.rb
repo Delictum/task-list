@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/' => 'static_pages#home'
   get 'home' => 'static_pages#home'
   get 'about' => 'static_pages#about'
+  get 'dashboard' => 'static_pages#dashboard'
   root 'static_pages#home'
 
   resources :tasks

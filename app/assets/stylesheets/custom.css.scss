@@ -68,6 +68,7 @@ p {
   &:hover {
     color: white;
     text-decoration: none;
+    background-color: #2E2F30;
   }
 }
 
@@ -86,7 +87,8 @@ footer {
   a {
     color: $gray;
     &:hover {
-      color: $gray-darker;
+      color: lightsteelblue;
+      background-color: white;
     }
   }
   small {
