@@ -1,6 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<%= render 'form', user: user %>
+<%= simple_form_for @task, url: task_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :subject %>
+  <p><%= @task.subject %></p>
+  <%= f.label :description %>
+  <p><%= @task.description %></p>
+
+  <%= f.label :status %>
+  <p><%= render 'status', task: @task %></p>
+
+  <%= f.label :type %>
+  <p><%= @task.type %></p>
+  <%= f.label :assignee %>
+  <p><%= User.where(id: @task.user_id).first.email %></p>
+  <%= f.label :created_by %>
+  <p><%= Admin.where(id: @task.admin_id).first.email %></p>
+
+  <%= f.label :created_at %>
+  <p><%= @task.created_at %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

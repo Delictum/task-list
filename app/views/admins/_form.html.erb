@@ -1,0 +1,14 @@
+<%= simple_form_for @admin, url: admin_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :email, input_html: {value: admin.email} %>
+  <%= f.input :password, input_html: {value: admin.password} %>
+
+  <%= f.label :created_at %>
+  <p><%= admin.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= admin.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>

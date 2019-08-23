@@ -1,0 +1,22 @@
+<%= simple_form_for @comment, url: comment_path do |f| %>
+  <%= f.error_notification %>
+
+  <% if comment.author_type == 'Admin' %>
+    <%= f.input :author, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [comment.author_id] %>
+  <% else %>
+    <%= f.input :author, collection: User.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [comment.author_id] %>
+  <% end %>
+  <%= f.input :comment_text, input_html: {value: comment.comment_text} %>
+
+  <% unless comment.reply_id.nil? %>
+    <%= link_to "Reply",   comment_path(Comment.where(id: reply_id).first) %>
+  <% end %>
+
+  <%= f.label :created_at %>
+  <p><%= comment.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= comment.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>

@@ -1,4 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<%= simple_form_for @user, url: user_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :email %>
+  <p><%= @user.email %></p>
+  <%= f.input :password %>
+  <p><%= @user.password %></p>
+
+  <%= f.label :created_at %>
+  <p><%= @user.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= @user.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

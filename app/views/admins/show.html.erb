@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= simple_form_for @admin, url: admin_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :email %>
+  <p><%= @admin.email %></p>
+  <%= f.input :password %>
+  <p><%= @admin.password %></p>
+
+  <%= f.label :created_at %>
+  <p><%= @admin.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= @admin.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>
+
+<%= link_to 'Edit', edit_admin_path(@admin) %> |
+<%= link_to 'Back', admins_path %>

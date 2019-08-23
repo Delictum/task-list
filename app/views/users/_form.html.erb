@@ -1,13 +1,14 @@
-<%= simple_form_for(@user) do |f| %>
-  <%= f.email %>
-  <%= f.password %>
+<%= simple_form_for @user, url: user_path do |f| %>
   <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-  </div>
+  <%= f.input :email, input_html: {value: user.email} %>
+  <%= f.input :password, input_html: {value: user.password} %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.label :created_at %>
+  <p><%= user.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= user.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
 <% end %>

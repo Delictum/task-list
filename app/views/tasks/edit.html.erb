@@ -1,6 +1,10 @@
 <h1>Editing Task</h1>
 
-<%= render 'form', task: @task %>
+<% if user_signed_in? %>
+  <%= render 'user_form', task: @task %>
+<% elsif admin_signed_in? %>
+  <%= render 'form', task: @task %>
+<% end %>
 
-<%= link_to 'Show', @task %> |
+<%= link_to 'Show', task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

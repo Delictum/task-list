@@ -1,27 +1,18 @@
-<%= form_for(task) do |f| %>
-  <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= simple_form_for @task, url: task_path do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-        <% task.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :subject, input_html: {value: task.subject} %>
+  <%= f.input :description, input_html: {value: task.description} %>
+  <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :multiple => true, :selected => [task.status] %>
+  <%= f.input :type, collection: { 'Issue' => 'Issue', 'Story' => 'Story' }, :multiple => true, :selected => [task.type] %>
+  <%= f.input :assignee, collection: User.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [task.user_id] %>
+  <%= f.input :created_by, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [task.admin_id] %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+  <%= f.label :created_at %>
+  <p><%= task.created_at %></p>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </div>
+  <%= f.label :updated_at %>
+  <p><%= task.updated_at %></p>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.button :submit, class: "btn-primary" %>
 <% end %>

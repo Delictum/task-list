@@ -1,0 +1,29 @@
+<%= simple_form_for @task, url: task_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :subject %>
+  <p><%= task.subject %></p>
+  <%= f.label :description %>
+  <p><%= task.description %></p>
+
+  <% if current_user.id == task.user_id && (task.status == 0 || task.status == 1) %>
+    <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2}, :multiple => true, :selected => [task.status] %>
+  <% else %>
+    <%= f.label :status %>
+    <p><%= render 'status', task %></p>
+  <% end %>
+
+  <%= f.label :type %>
+  <p><%= task.type %></p>
+  <%= f.label :assignee %>
+  <p><%= User.where(id: task.user_id).first.email %></p>
+  <%= f.label :created_by %>
+  <p><%= Admin.where(id: task.admin_id).first.email %></p>
+
+  <%= f.label :created_at %>
+  <p><%= task.created_at %></p>
+
+  <% if current_user.id == task.user_id && (task.status == 0 || task.status == 1) %>
+    <%= f.button :submit, class: "btn-primary" %>
+  <% end %>
+<% end %>

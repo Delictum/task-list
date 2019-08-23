@@ -29,15 +29,7 @@
         <tr>
           <td><%= task.subject %></td>
           <td><%= task.type %></td>
-          <% if task.status == 0 %>
-            <td>To Do</td>
-          <% elsif task.status == 1 %>
-            <td>In Progress</td>
-          <% elsif task.status == 2 %>
-            <td>In Review</td>
-          <% elsif task.status == 3 %>
-            <td>Done</td>
-          <% end %>
+          <td><%= render 'tasks/status', task: task %></td>
         </tr>
       <% end %>
     </table>
