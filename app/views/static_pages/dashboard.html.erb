@@ -23,6 +23,7 @@
         <th>Subject</th>
         <th>Type</th>
         <th>Status</th>
+        <th colspan="3"></th>
       </tr>
 
       <% @tasks.each do |task| %>
@@ -30,6 +31,9 @@
           <td><%= task.subject %></td>
           <td><%= task.type %></td>
           <td><%= render 'tasks/status', task: task %></td>
+          <td><%= link_to 'Show', task_path(task) %></td>
+          <td><%= link_to 'Edit', edit_task_path(task) %></td>
+          <td><%= link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </table>
@@ -38,6 +42,45 @@
 
 <div class="split right">
   <div class="centered">
+    <h4>SQL</h4>
+    <br>
+
+    <h5>Users</h5>
+    <table>
+      <tr>
+        <th>Email</th>
+        <th colspan="3"></th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= link_to 'Show', user_path(user) %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <hr>
+    
+    <h5>Admins</h5>
+    <table>
+      <tr>
+        <th>Email</th>
+        <th colspan="3"></th>
+      </tr>
+
+      <% @admins.each do |admin| %>
+        <tr>
+          <td><%= admin.email %></td>
+          <td><%= link_to 'Show', admin_path(admin) %></td>
+          <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+          <td><%= link_to 'Destroy', admin_path(admin), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+
     <h4>In review</h4>
     <hr>
 
@@ -45,23 +88,18 @@
       <tr>
         <th>Subject</th>
         <th>Type</th>
+        <th colspan="3"></th>
       </tr>
 
       <% @tasks_review.each do |task| %>
         <tr>
           <td><%= task.subject %></td>
           <td><%= task.type %></td>
+          <td><%= link_to 'Show', task_path(task) %></td>
+          <td><%= link_to 'Edit', edit_task_path(task) %></td>
+          <td><%= link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </table>
   </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(function() {
-            $("input#search_created_at").datepicker();
-        });
-    });
-</script>
