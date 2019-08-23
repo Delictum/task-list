@@ -25,11 +25,13 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.user = current_user
+    @user = User.find(id: @task.user_id)
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        SendEmailJob.set(wait: 20.seconds).perform_later(@user)
+
+        format.html { redirect_to @task, notice: 'Task was successfully created. Mail delivered.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -43,7 +45,10 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        @admin = Admin.find(id: @task.admin_id)
+        SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
+
+        format.html { redirect_to @task, notice: 'Task was successfully updated.  Mail delivered.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }

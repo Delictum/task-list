@@ -36,6 +36,8 @@ gem 'rspec'
 
 gem 'delayed_job'
 
+gem 'delayed_job_active_record'
+
 gem 'factory_bot'
 
 gem 'faker'
