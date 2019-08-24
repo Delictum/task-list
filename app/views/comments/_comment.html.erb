@@ -1,0 +1,32 @@
+  <div class="comments">
+      <div class="comment">
+          <div class="comment-header">
+            ID [<%= comment.id %>] REPLY [<%= comment.reply_id %>] posted by
+            <% if comment.author_type == 'Admin' %>
+              <%= Admin.where(id: comment.author_id).first.email %>
+                <%= link_to 'edit', edit_comment_path(comment) %>
+                <%= link_to 'delete', comment, :confirm => 'Are you sure?', :method => :delete %>
+            <% else %>
+              <%= User.where(id: comment.author_id).first.email %>
+              <% if user_signed_in? %>
+                <% if comment.author_id == current_user.id && comment.author_type == 'User' %>
+                    <%= link_to 'edit', edit_comment_path(comment) %>
+                    <%= link_to 'delete', comment, :confirm => 'Are you sure?', :method => :delete %>
+                  <% end %>
+                <% end %>
+            <% end %>
+          </div>
+
+        <br />
+
+        <div class="comment-text">
+          <b><%= comment.comment_text %></b>
+          posted at: <%= comment.created_at.to_formatted_s(:short)%>
+        </div>
+
+        <br />
+
+        <%= link_to "reply", new_comment_path(:reply_id => comment.id, :task_id => @task.id) %>
+        <%= render :partial => "comments/comment", :collection => @comments.where(reply_id: comment.id) %>
+      </div>
+  </div>

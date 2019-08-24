@@ -6,5 +6,5 @@ class Comment < ApplicationRecord
 
   belongs_to :reply, class_name: "Comment", optional: true
 
-  validates :comment_text, presence: true
+  validates :comment_text, presence: true, length: { in: 2..200 }
 end

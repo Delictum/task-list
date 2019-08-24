@@ -24,7 +24,16 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    # @comment = Comment.new(comment_params)
+    @comment = Comment.new(params.require(:comment).permit(:comment_text, :author_type, :author_id, :task_id))
+
+    if params[:reply_id]
+      @comment.reply_id = params[:reply_id]
+    end
+
+    if params[:task_id]
+      @comment.task_id = params[:task_id]
+    end
 
     respond_to do |format|
       if @comment.save

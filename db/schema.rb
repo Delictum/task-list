@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 2019_08_24_114017) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_text"
-    t.datetime "created_by"
     t.bigint "reply_id"
     t.string "author_type"
     t.bigint "author_id"

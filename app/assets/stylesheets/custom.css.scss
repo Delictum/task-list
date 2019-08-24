@@ -103,3 +103,29 @@ footer {
     }
   }
 }
+
+div#comments{
+  background-color:#eee;
+  padding:20px;
+}
+
+div.comment{
+  margin:0 -1px 10px 0;
+  padding:10px 0 0 10px;
+  border:1px solid #dfdfdf;
+  background-color:#fff;
+}
+
+div.comment-header{
+  background-color: #f9f9f9;
+  margin: -10px 0 0 -10px;
+  padding:10px 0 10px 10px;
+  color: #ccc;
+  font-size: .8em;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+div.comment-text{
+  margin: 0;
+  padding: 10px 0;
+}
