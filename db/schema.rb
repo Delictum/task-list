@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_193241) do
+ActiveRecord::Schema.define(version: 2019_08_24_114017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,10 @@ ActiveRecord::Schema.define(version: 2019_08_23_193241) do
     t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "task_id"
     t.index ["author_type", "author_id"], name: "index_comments_on_author_type_and_author_id"
     t.index ["reply_id"], name: "index_comments_on_reply_id"
+    t.index ["task_id"], name: "index_comments_on_task_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -68,13 +70,6 @@ ActiveRecord::Schema.define(version: 2019_08_23_193241) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
-  create_table "tasks_comments", id: false, force: :cascade do |t|
-    t.bigint "comment_id"
-    t.bigint "task_id"
-    t.index ["comment_id"], name: "index_tasks_comments_on_comment_id"
-    t.index ["task_id"], name: "index_tasks_comments_on_task_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_193241) do
     t.index ["user_id"], name: "index_users_on_user_id"
   end
 
+  add_foreign_key "comments", "tasks"
   add_foreign_key "tasks", "admins"
   add_foreign_key "tasks", "users"
 end

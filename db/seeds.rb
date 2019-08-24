@@ -55,6 +55,7 @@ end
       comment_text: Faker::Book.title,
       author: User.find(1),
       id: i + 21,
+      task_id: 1,
       )
   comment.save!
 
@@ -63,6 +64,7 @@ end
       reply_id: i,
       author: User.find(2),
       id: i + 1,
+      task_id: 1,
       )
   comment.save!
 end
