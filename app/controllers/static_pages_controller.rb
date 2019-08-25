@@ -1,4 +1,13 @@
 class StaticPagesController < ApplicationController
+
+  def pundit_user
+    if admin_signed_in?
+      current_admin
+    else
+      current_user
+    end
+  end
+
   def home
   end
 
@@ -10,6 +19,7 @@ class StaticPagesController < ApplicationController
 
   def dashboard
     @tasks = Task.all
+    authorize @tasks
     @tasks_review = Task.where(admin_id: current_admin.id, status: 2)
 
     users_result = Task.connection.select_all('SELECT result_done.user_id AS id FROM (

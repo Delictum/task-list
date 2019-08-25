@@ -1,18 +1,12 @@
-<%= simple_form_for @task, url: task_path do |f| %>
+<%= simple_form_for @task do |f| %>
   <%= f.error_notification %>
 
   <%= f.input :subject, input_html: {value: task.subject} %>
   <%= f.input :description, input_html: {value: task.description} %>
   <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :multiple => true, :selected => [task.status] %>
   <%= f.input :type, collection: { 'Issue' => 'Issue', 'Story' => 'Story' }, :multiple => true, :selected => [task.type] %>
-  <%= f.input :user_id, collection: User.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [task.user_id] %>
-  <%= f.input :admin_id, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [task.admin_id] %>
-
-  <%= f.label :created_at %>
-  <p><%= task.created_at %></p>
-
-  <%= f.label :updated_at %>
-  <p><%= task.updated_at %></p>
+  <%= f.input :user_id, collection: User.all, :label_method => :email, :value_method => :id, :multiple => true, :selected => [task.user_id] %>
+  <%= f.input :admin_id, :as => :hidden, :input_html => { value: current_admin.id } %>
 
   <%= f.button :submit, class: "btn-primary" %>
 <% end %>

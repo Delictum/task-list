@@ -1,36 +1,32 @@
-class UserPolicy < ApplicationPolicy
+class CommentPolicy < ApplicationPolicy
   include ApplicationHelper
 
   attr_reader :current_user, :model
 
   def initialize(current_user, model)
     @current_user = current_user
-    @user = model
+    @comment = model
   end
 
   def index?
-    if current_user.is_a?(Admin)
-      @current_user.present?
-    end
+    @current_user.present?
   end
 
   def create?
-    true
+    if current_user.is_a?(Admin)
+      @current_user.present?
+    end
   end
 
   def show?
-    if current_user.is_a?(Admin)
-      @current_user.present?
-    else
-      @current_user == @user
-    end
+    @current_user.present?
   end
 
   def update?
     if current_user.is_a?(Admin)
       @current_user.present?
     else
-      @current_user == @user
+      @current_user.id == @comment.user_id
     end
   end
 
@@ -38,7 +34,7 @@ class UserPolicy < ApplicationPolicy
     if current_user.is_a?(Admin)
       @current_user.present?
     else
-      @current_user == @user
+      @current_user.id == @comment.user_id
     end
   end
 end

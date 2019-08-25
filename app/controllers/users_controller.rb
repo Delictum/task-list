@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  include Pundit
-
   after_action :verify_authorized
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 

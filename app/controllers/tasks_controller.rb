@@ -1,32 +1,45 @@
 class TasksController < ApplicationController
+  after_action :verify_authorized
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    if admin_signed_in?
+      current_admin
+    else
+      current_user
+    end
+  end
 
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = Task.all
+    authorize @tasks
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
     @comments = Comment.where(task_id: @task.id)
+    authorize @task
   end
 
   # GET /tasks/new
   def new
     @task = Task.new
+    authorize @task
   end
 
   # GET /tasks/1/edit
   def edit
+    authorize @task
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
-    @user = User.find(id: @task.user_id)
+    @task = Task.new(params[:task].permit!)
+    @user = User.find(@task.user_id)
 
     respond_to do |format|
       if @task.save
