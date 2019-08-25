@@ -3,8 +3,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
-  def after_sign_in_path_for(users)
-    users_path
+  def after_sign_in_path_for(resource)
+    if resource.class == Admin
+      admin_path(resource)
+    else
+      # Change profile_path to where you want regular users to go
+      stored_location_for(resource) || user_path(resource)
+    end
   end
 
   def after_sign_out_path_for(resource_or_scope)

@@ -1,30 +1,48 @@
 class UsersController < ApplicationController
+  include Pundit
+
+  after_action :verify_authorized
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    if admin_signed_in?
+      current_admin
+    else
+      current_user
+    end
+  end
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    authorize User
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   # GET /users/new
   def new
     @user = User.new
+    authorize @user
   end
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
+    authorize @user
 
     respond_to do |format|
       if @user.save
@@ -40,6 +58,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
+    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -55,6 +75,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    authorize User
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
