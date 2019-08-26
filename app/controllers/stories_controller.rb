@@ -1,5 +1,4 @@
 class StoriesController < ApplicationController
-  after_action :verify_authorized
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -39,10 +38,14 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(params[:story].permit!)
     authorize @story
+    @user = User.find(@task.user_id)
 
     respond_to do |format|
       if @story.save
-        format.html { redirect_to @story, notice: 'Story was successfully created.' }
+        # SendEmailJob.set(wait: 20.seconds).perform_later(@user)
+        @user.send_task_created
+
+        format.html { redirect_to @story, notice: 'Story was successfully created. Mail delivered.' }
         format.json { render :show, status: :created, location: @story }
       else
         format.html { render :new }
@@ -57,7 +60,11 @@ class StoriesController < ApplicationController
     authorize @story
     respond_to do |format|
       if @story.update(story_params)
-        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
+        @admin = Admin.find(id: @task.admin_id)
+        @admin.send_task_modified
+        # SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
+
+        format.html { redirect_to @story, notice: 'Story was successfully updated. Mail delivered.' }
         format.json { render :show, status: :ok, location: @story }
       else
         format.html { render :edit }

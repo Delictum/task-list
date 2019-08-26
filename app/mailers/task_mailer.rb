@@ -7,7 +7,7 @@ class TaskMailer < ActionMailer::Base
   end
 
   def sample_modified_task_email(admin)
-    @admin= admin
+    @admin = admin
     mail(to: @admin.email, subject: 'Sample Modified Task Email')
   end
 end

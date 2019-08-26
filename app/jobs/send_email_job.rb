@@ -1,8 +1,8 @@
 class SendEmailJob < ActiveJob::Base
   queue_as :default
 
-  def perform(user)
-    @user = user
-    TaskMailer.sample_email(@user).deliver_later
+  def perform(id)
+    @user = User.find(id)
+    TaskMailer.sample_email(@user).deliver_now
   end
 end

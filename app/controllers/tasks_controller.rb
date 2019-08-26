@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  after_action :verify_authorized
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -39,11 +38,13 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task].permit!)
+    authorize @task
     @user = User.find(@task.user_id)
 
     respond_to do |format|
       if @task.save
-        SendEmailJob.set(wait: 20.seconds).perform_later(@user)
+        # SendEmailJob.set(wait: 20.seconds).perform_later(@user)
+        @user.send_task_created
 
         format.html { redirect_to @task, notice: 'Task was successfully created. Mail delivered.' }
         format.json { render :show, status: :created, location: @task }
@@ -60,7 +61,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         @admin = Admin.find(id: @task.admin_id)
-        SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
+        # SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
+        @admin.send_task_modified
 
         format.html { redirect_to @task, notice: 'Task was successfully updated.  Mail delivered.' }
         format.json { render :show, status: :ok, location: @task }

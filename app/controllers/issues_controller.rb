@@ -1,5 +1,4 @@
 class IssuesController < ApplicationController
-  after_action :verify_authorized
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -39,10 +38,13 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(params[:issue].permit!)
     authorize @issue
+    @user = User.find(@task.user_id)
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
+        # SendEmailJob.set(wait: 20.seconds).perform_later(@user)
+        @user.send_task_created
+        format.html { redirect_to @issue, notice: 'Issue was successfully created. Mail delivered.' }
         format.json { render :show, status: :created, location: @issue }
       else
         format.html { render :new }
@@ -58,7 +60,11 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
+        @admin = Admin.find(id: @task.admin_id)
+        @admin.send_task_modified
+        # SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
+
+        format.html { redirect_to @issue, notice: 'Issue was successfully updated. Mail delivered.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         format.html { render :edit }
