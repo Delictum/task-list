@@ -37,4 +37,10 @@ class TaskPolicy < ApplicationPolicy
       @current_user.id == @task.user_id
     end
   end
+
+  def dashboard?
+    if current_user.is_a?(Admin)
+      @current_user.present?
+    end
+  end
 end
