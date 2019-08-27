@@ -1,6 +1,7 @@
 <%= simple_form_for @task, url: task_path do |f| %>
   <%= f.error_notification %>
 
+  <%= f.input :id, :as => :hidden, :input_html => { value: task.id } %>
   <%= f.input :subject, input_html: {value: task.subject} %>
   <%= f.input :description, input_html: {value: task.description} %>
   <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :multiple => true, :selected => [task.status] %>

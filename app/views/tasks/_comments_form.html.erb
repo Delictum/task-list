@@ -16,9 +16,16 @@
     <%= f.text_area :comment_text, :size => "67x5"%>
   </div>
 
-  <%= hidden_field_tag :reply_id, params[:reply_id] %>
+  <% unless params[:reply_id].to_s.empty? %>
+    <%= hidden_field_tag :reply_id, params[:reply_id] %>
+  <% end %>
 
-  <%= hidden_field_tag :task_id, params[:task_id] ? params[:task_id] : @task.id %>
+  <% if params[:task_id].to_s.empty? %>
+    <%=  f.label :task_id  %><br/>
+    <%= f.collection_select(:task_id, Task.all, :id, :subject) %>
+  <%  else  %>
+    <%=  hidden_field_tag :task_id, params[:task_id] ? params[:task_id] : @task.id  %>
+  <%  end %>
 
   <% if user_signed_in? %>
     <%= f.hidden_field :author_id,    :value => current_user.id %>

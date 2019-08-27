@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
   def update
     authorize @comment
     respond_to do |format|
-      if @comment.update(comment_params)
+      if @comment.update(params.require(:comment).permit(:comment_text, :author_type, :author_id, :task_id))
         format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else

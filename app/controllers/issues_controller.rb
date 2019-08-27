@@ -59,8 +59,8 @@ class IssuesController < ApplicationController
     authorize @issue
 
     respond_to do |format|
-      if @issue.update(issue_params)
-        @admin = Admin.find(id: @task.admin_id)
+      if @issue.update(params.require(:issue).permit(:subject, :status, :description, :admin_id, :user_id, :type))
+        @admin = Admin.find(@issue.admin_id)
         @admin.send_task_modified
         # SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
 

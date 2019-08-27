@@ -20,9 +20,15 @@
       <td><%= task.subject %></td>
       <td><%= render 'status', task: task %></td>
       <td><%= task.type %></td>
-      <td><%= link_to 'Show', task_path(task) %></td>
-      <td><%= link_to 'Edit', edit_task_path(task) %></td>
-      <td><%= link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if task.type == 'Issue' %>
+        <td><%= link_to 'Show', issue_path(task) %></td>
+        <td><%= link_to 'Edit', edit_issue_path(task) %></td>
+        <td><%= link_to 'Destroy', issue_path(task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% elsif task.type == 'Story' %>
+        <td><%= link_to 'Show', story_path(task) %></td>
+        <td><%= link_to 'Edit', edit_story_path(task) %></td>
+        <td><%= link_to 'Destroy', story_path(task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>

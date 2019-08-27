@@ -1,4 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<%= simple_form_for @issue, url: issue_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :subject %>
+  <p><%= @issue.subject %></p>
+  <%= f.label :description %>
+  <p><%= @issue.description %></p>
+
+  <%= f.label :status %>
+  <p><%= render 'tasks/status', task: @issue %></p>
+
+  <%= f.label :assignee %>
+  <p><%= User.where(id: @issue.user_id).first.email %></p>
+  <%= f.label :created_by %>
+  <p><%= Admin.where(id: @issue.admin_id).first.email %></p>
+
+  <%= f.label :created_at %>
+  <p><%= @issue.created_at %></p>
+<% end %>
+
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>

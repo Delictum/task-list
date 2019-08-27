@@ -1,12 +1,19 @@
-
-<%= simple_form_for(@issue) do |f| %>
+<%= simple_form_for @issue, url: issue_path do |f| %>
   <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-  </div>
+  <%= f.input :id, :as => :hidden, :input_html => { value: issue.id } %>
+  <%= f.input :subject, input_html: {value: issue.subject} %>
+  <%= f.input :description, input_html: {value: issue.description} %>
+  <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :multiple => true, :selected => [issue.status] %>
+  <%= f.input :type, collection: { 'Issue' => 'Issue', 'Story' => 'Story' }, :multiple => true, :selected => [issue.type] %>
+  <%= f.input :user_id, collection: User.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [issue.user_id] %>
+  <%= f.input :admin_id, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [issue.admin_id] %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.label :created_at %>
+  <p><%= issue.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= issue.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
 <% end %>

@@ -1,4 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<%= simple_form_for @story, url: story_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.label :subject %>
+  <p><%= @story.subject %></p>
+  <%= f.label :description %>
+  <p><%= @story.description %></p>
+
+  <%= f.label :status %>
+  <p><%= render 'tasks/status', task: @story %></p>
+
+  <%= f.label :assignee %>
+  <p><%= User.where(id: @story.user_id).first.email %></p>
+  <%= f.label :created_by %>
+  <p><%= Admin.where(id: @story.admin_id).first.email %></p>
+
+  <%= f.label :created_at %>
+  <p><%= @story.created_at %></p>
+<% end %>
+
 <%= link_to 'Edit', edit_story_path(@story) %> |
 <%= link_to 'Back', stories_path %>

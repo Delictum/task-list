@@ -60,7 +60,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        @admin = Admin.find(id: @task.admin_id)
+
+        @admin = Admin.find(@task.admin_id)
         # SendModifiedTaskEmailJob.set(wait: 20.seconds).perform_later(@admin)
         @admin.send_task_modified
 

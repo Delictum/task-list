@@ -1,12 +1,19 @@
-
-<%= simple_form_for(@story) do |f| %>
+<%= simple_form_for @story, url: story_path do |f| %>
   <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-  </div>
+  <%= f.input :id, :as => :hidden, :input_html => { value: story.id } %>
+  <%= f.input :subject, input_html: {value: story.subject} %>
+  <%= f.input :description, input_html: {value: story.description} %>
+  <%= f.input :status, collection: { 'To Do' => 0, 'In Progress' => 1, 'In Review' => 2, 'Done' => 3}, :multiple => true, :selected => [story.status] %>
+  <%= f.input :type, collection: { 'Issue' => 'Issue', 'Story' => 'Story' }, :multiple => true, :selected => [story.type] %>
+  <%= f.input :user_id, collection: User.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [story.user_id] %>
+  <%= f.input :admin_id, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [story.admin_id] %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.label :created_at %>
+  <p><%= story.created_at %></p>
+
+  <%= f.label :updated_at %>
+  <p><%= story.updated_at %></p>
+
+  <%= f.button :submit, class: "btn-primary" %>
 <% end %>

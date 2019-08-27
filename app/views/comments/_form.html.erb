@@ -1,7 +1,7 @@
 <%= simple_form_for @comment, url: comment_path do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :task, collection: Task.all, :label_method => :subject, :value_method => :id, :multiple => true %>
+  <%= f.input :task_id, collection: Task.all, :label_method => :subject, :value_method => :id, :multiple => true %>
 
   <% if comment.author_type == 'Admin' %>
     <%= f.input :author, collection: Admin.all, :label_method => :email,:value_method => :id, :multiple => true, :selected => [comment.author_id] %>
