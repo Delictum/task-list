@@ -1,7 +1,7 @@
   <div class="comments">
       <div class="comment">
           <div class="comment-header">
-            ID [<%= comment.id %>] REPLY [<%= comment.reply_id %>] posted by
+            posted by
             <% if comment.author_type == 'Admin' %>
               <%= Admin.where(id: comment.author_id).first.email %>
                 <%= link_to 'edit', edit_comment_path(comment) %>
