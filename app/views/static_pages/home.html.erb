@@ -1,8 +1,183 @@
 <div class="center jumbotron">
   <h1>Welcome to the Task List</h1>
 
-  <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+  <% unless user_signed_in? or admin_signed_in? %>
+    <%= link_to "Sign up now!", '/users/sign_up', class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>
 
-<%= link_to image_tag("https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/1200px-Ruby_On_Rails_Logo.svg.png", alt: "Rails logo"),
-            'http://rubyonrails.org/' %>
+<section id="content">
+    <div class="row">
+      <div class="col-md-8">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/50/checklist-1295319_960_720.png" alt="task" width="600">
+      </div>
+
+      <div class="col-md-4">
+        <div class="block-heading-two">
+          <h3><span>Наши решения</span></h3>
+        </div>
+
+        <div class="panel-group" id="accordion-alt3">
+          <div class="panel">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseOne-alt3">
+                  <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Visual check book # 1
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseOne-alt3" class="panel-collapse collapse">
+              <div class="panel-body">
+                Это приложение для андроида, позволяющее распозновать isbn книг и находить их во всемирной библиотеке, предоставляя подробную информацию. Добавление данных книг в свой список позволяет составить свою виртуальную библиотеку, которая будет всегда под рукой. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/VisualCheckBook" target="_blank">Перейти</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3">
+                          <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Repair planning # 2
+                      </a>
+                  </h4>
+              </div>
+
+              <div id="collapseTwo-alt3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      Это windows-приложение позволяет планировать ремонт, расчитывать затраты и вносить необходимые предметы, вести учет по специалситам. Собственный конструктор предоставляет гибкую возможность вносить корректировки в ремонт. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/RepairPlanning" target="_blank">Перейти</a></p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3">
+                  <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Manager cloud # 3
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseThree-alt3" class="panel-collapse collapse">
+              <div class="panel-body">
+                Это windows-служба, обрабатывающая входные файлы менеджера по продажам и представляющая собой облако хранения. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/epam_developer_net/tree/master/ManagerCloud" target="_blank">Перейти</a></p> Это web-сайт, представлюящий собой облако, предназначенный для менеджеров по продажам и администрации. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/epam_developer_net/tree/master/MvcManagerCloud" target="_blank">Перейти</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseFour-alt3">
+                          <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Encrypted dialogue # 4
+                      </a>
+                  </h4>
+              </div>
+
+              <div id="collapseFour-alt3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      Это windows-приложение позволяет вести диалог в зашифрованном виде. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/EncryptedDialogue" target="_blank">Перейти</a></p> Его улучшенная версия в виде web-сайта использует принцип стеганографии посредством файлов. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/EncryptdeDialogue.MVC" target="_blank">Перейти</a></p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseFive-alt3">
+                  <i style="color: deepskyblue;" class="fa fa-angle-right"></i> New Years gift # 5
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseFive-alt3" class="panel-collapse collapse">
+              <div class="panel-body">
+                Это консольное приложение позволяет вести учет и создание моделей новых новогодних подарков. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/epam_developer_net/tree/master/NewYearsGift" target="_blank">Перейти</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseSix-alt3">
+                          <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Network hairdressing # 6
+                      </a>
+                  </h4>
+              </div>
+
+              <div id="collapseSix-alt3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      Данный web-сайт предоставляет управление сетью парикмахерских, обеспечивая табелем учета рабочего времени, графиком отпусков. Позволяет клиентам ознакомиться с парикмахерами и их работами, записаться на прием в онлайн. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/NetworkHairdressing" target="_blank">Перейти</a></p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseSeven-alt3">
+                  <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Text processing book # 7
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseSeven-alt3" class="panel-collapse collapse">
+              <div class="panel-body">
+                Данное консольное приложение предназначено для обработки текста в структурированные части и дальнейшей его обработки. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/epam_developer_net/tree/master/TextProcessingForBook" target="_blank">Перейти</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseEight-alt3">
+                          <i style="color: deepskyblue;" class="fa fa-angle-right"></i> School accounting # 8
+                      </a>
+                  </h4>
+              </div>
+
+              <div id="collapseEight-alt3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      Это windows-приложение позволяет вести учет школьных услуг, предоставляя гибкие возможности для его осуществления. Выводит ряд печатных документов, необходимых для учреждения образования. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/SchoolAccounting" target="_blank">Перейти</a></p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseNine-alt3">
+                  <i style="color: deepskyblue;" class="fa fa-angle-right"></i> The billing system # 9
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseNine-alt3" class="panel-collapse collapse">
+              <div class="panel-body">
+                Это консольное приложение представляет собой модель биллинговой системы. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/epam_developer_net/tree/master/TheBillingSystem" target="_blank">Перейти</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-heading">
+                  <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTen-alt3">
+                          <i style="color: deepskyblue;" class="fa fa-angle-right"></i> Event planning # 10
+                      </a>
+                  </h4>
+              </div>
+
+              <div id="collapseTen-alt3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                      Данный web-сайт предоставляет управление мероприятиями, обеспечивая мощным набором возможностей для конструирования. Сайт является клиентоориентированным, включая необходимый спектр возможностей для пользователей. <br><br> <p align="center"><a class="btn btn-link" href="https://github.com/Delictum/EventPlanning" target="_blank">Перейти</a></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
